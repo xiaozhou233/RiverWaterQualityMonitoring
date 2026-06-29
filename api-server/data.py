@@ -1,5 +1,6 @@
 import csv
 import os
+from collections import deque
 
 ###
 DATA_FILE = "database.csv"
@@ -22,9 +23,9 @@ def insert_data(time, ph, tds, turbidity):
 
         writer.writerow([time, ph, tds, turbidity])
 
-# 获取所有数据
-def get_data():
-    data = []
+# 获取最新100条数据
+def get_data(limit=100):
+    data = deque(maxlen=limit)
 
     try:
         with open(DATA_FILE, "r", newline="", encoding="utf-8") as file:
@@ -45,7 +46,7 @@ def get_data():
     except FileNotFoundError:
         return []
 
-    return data
+    return list(data)
 
 # 获取最新数据
 def get_last_data():
