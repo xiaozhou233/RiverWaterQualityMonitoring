@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智慧河流水质监测系统</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ================= Banner ================= -->
+
+    <header class="banner">
+
+        <div class="banner-left">
+            <div class="banner-title">
+                智慧河流水质监测系统
+            </div>
+
+            <div class="banner-subtitle">
+                Smart River Water Quality Monitoring System
+            </div>
+        </div>
+
+        <div class="banner-right">
+
+            <div class="clock-title">
+                当前时间
+            </div>
+
+            <div id="clock" class="clock">
+                --
+            </div>
+
+        </div>
+
+    </header>
+
+    <!-- ================= Main ================= -->
+
+    <main class="container">
+
+        <!-- ================= Summary ================= -->
+
+        <section class="cards">
+
+            <div class="card">
+
+                <div class="card-title">
+                    综合评分
+                </div>
+
+                <div id="score" class="card-value black">
+                    --
+                </div>
+
+            </div>
+
+            <div class="card">
+
+                <div class="card-title">
+                    综合等级
+                </div>
+
+                <div id="level" class="card-value black">
+                    --
+                </div>
+
+            </div>
+
+            <div class="card">
+
+                <div class="card-title">
+                    系统状态
+                </div>
+
+                <div id="abnormal" class="card-value">
+                    --
+                </div>
+
+            </div>
+
+            <div class="card">
+
+                <div class="card-title">
+                    数据更新时间
+                </div>
+
+                <div id="time" class="update-time">
+                    --
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- ================= Items ================= -->
+
+        <section class="items">
+
+            <div class="item">
+
+                <div class="item-header">
+
+                    <div class="item-name">
+                        pH
+                    </div>
+
+                </div>
+
+                <div id="ph-value" class="value">
+                    --
+                </div>
+
+                <div id="ph-level" class="level">
+                    --
+                </div>
+
+                <div id="ph-score" class="score">
+                    --
+                </div>
+
+            </div>
+
+            <div class="item">
+
+                <div class="item-header">
+
+                    <div class="item-name">
+                        TDS（溶解性总固体）
+                    </div>
+
+                </div>
+
+                <div id="tds-value" class="value">
+                    --
+                </div>
+
+                <div id="tds-level" class="level">
+                    --
+                </div>
+
+                <div id="tds-score" class="score">
+                    --
+                </div>
+
+            </div>
+
+            <div class="item">
+
+                <div class="item-header">
+
+                    <div class="item-name">
+                        浊度
+                    </div>
+
+                </div>
+
+                <div id="turbidity-value" class="value">
+                    --
+                </div>
+
+                <div id="turbidity-level" class="level">
+                    --
+                </div>
+
+                <div id="turbidity-score" class="score">
+                    --
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- ================= Charts ================= -->
+
+        <section class="chart-grid">
+
+            <div class="chart">
+
+                <div class="chart-title">
+                    pH 变化趋势
+                </div>
+
+                <div class="chart-body">
+                    <div id="phChart"></div>
+                </div>
+
+            </div>
+
+            <div class="chart">
+
+                <div class="chart-title">
+                    TDS（溶解性总固体）变化趋势
+                </div>
+
+                <div class="chart-body">
+                    <div id="tdsChart"></div>
+                </div>
+
+            </div>
+
+            <div class="chart">
+
+                <div class="chart-title">
+                    浊度变化趋势
+                </div>
+
+                <div class="chart-body">
+                    <div id="turbidityChart"></div>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- ================= Footer ================= -->
+
+    <footer class="footer">
+
+        智慧河流水质监测平台 © 2026
+
+    </footer>
+
+    <script src="dashboard.js"></script>
+
+</body>
+
+</html>
