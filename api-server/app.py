@@ -82,4 +82,5 @@ def data_score(token:str):
     turbidity = data["turbidity"]
 
     score = calculate_score(ph, tds, turbidity)
+    score["time"] = data["time"]
     return score
