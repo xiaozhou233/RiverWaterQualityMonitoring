@@ -2,12 +2,21 @@ from fastapi import FastAPI
 from datetime import datetime
 from data import * 
 from score import *
+from fastapi.middleware.cors import CORSMiddleware
 
 ###
 TOKEN = "mE7yG0kI"
 ###
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/")
 def root():
