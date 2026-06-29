@@ -24,19 +24,28 @@ def insert_data(time, ph, tds, turbidity):
 
 # 获取所有数据
 def get_data():
-    with open(DATA_FILE, "r", newline="", encoding="utf-8") as file:
-        reader = csv.DictReader(file)
+    data = []
 
-        data = []
+    try:
+        with open(DATA_FILE, "r", newline="", encoding="utf-8") as file:
+            reader = csv.DictReader(file)
 
-        for row in reader:
-            row["ph"] = float(row["ph"])
-            row["tds"] = float(row["tds"])
-            row["turbidity"] = float(row["turbidity"])
+            if reader.fieldnames is None:
+                return []
 
-            data.append(row)
+            for row in reader:
+                try:
+                    row["ph"] = float(row["ph"])
+                    row["tds"] = float(row["tds"])
+                    row["turbidity"] = float(row["turbidity"])
+                    data.append(row)
+                except (ValueError, TypeError, KeyError):
+                    continue
 
-        return data
+    except FileNotFoundError:
+        return []
+
+    return data
 
 # 获取最新数据
 def get_last_data():

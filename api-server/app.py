@@ -29,7 +29,12 @@ def data_all(token:str):
     if token!= TOKEN:
         return {"status": "error", "message": "token error"}
 
-    return get_data()
+    data = get_data()
+
+    if data is None:
+        return []
+    
+    return data
 
 # 获取最新数据
 @app.get("/data/last")
@@ -37,7 +42,17 @@ def data_last(token:str):
     if token!= TOKEN:
         return {"status": "error", "message": "token error"}
 
-    return get_last_data()
+    data = get_last_data()
+
+    if data is None:
+        return {
+            "time": None,
+            "ph": None,
+            "tds": None,
+            "turbidity": None
+        }
+    
+    return data
 
 # 获取最新数据的评分
 @app.get("/data/score")
@@ -46,6 +61,13 @@ def data_score(token:str):
         return {"status": "error", "message": "token error"}
 
     data = get_last_data()
+
+    if data is None:
+        return {
+            "code": 1,
+            "message": "暂无数据"
+        }
+    
     ph = data["ph"]
     tds = data["tds"]
     turbidity = data["turbidity"]
