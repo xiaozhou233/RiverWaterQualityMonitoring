@@ -1,5 +1,5 @@
-const SCORE_API = "http://127.0.0.1:8000/data/score?token=mE7yG0kI";
-const HISTORY_API = "http://127.0.0.1:8000/data/all?token=mE7yG0kI";
+const API_BASE = "http://127.0.0.1:8000";
+const DATA_API = API_BASE + "/data/integration";
 
 let phChart = null;
 let tdsChart = null;
@@ -49,19 +49,24 @@ function createChart(chart, title, color) {
         },
 
         series: [{
+
             name: title,
             type: "line",
             smooth: true,
             symbol: "none",
+
             lineStyle: {
                 width: 3,
                 color: color
             },
+
             areaStyle: {
                 opacity: 0.15,
                 color: color
             },
+
             data: []
+
         }]
 
     });
@@ -85,7 +90,7 @@ function initCharts() {
 }
 
 /* ===========================
-   Update Item
+   Update Card
 =========================== */
 
 function setItem(name, data) {
@@ -102,63 +107,58 @@ function setItem(name, data) {
 }
 
 /* ===========================
-   Load Score
+   Load Data
 =========================== */
 
 async function loadData() {
 
     try {
 
-        const res = await fetch(SCORE_API);
+        const res = await fetch(DATA_API);
 
-        const data = await res.json();
+        const result = await res.json();
 
-        document.getElementById("score").innerHTML = data.score;
+        if (result.code !== 200) {
 
-        document.getElementById("level").innerHTML = data.level;
+            console.error(result.message);
+            return;
+
+        }
+
+        /* ===========================
+           Score
+        =========================== */
+
+        const score = result.score;
+
+        document.getElementById("score").innerHTML =
+            score.score;
+
+        document.getElementById("level").innerHTML =
+            score.level;
 
         document.getElementById("time").innerHTML =
-            data.time.substring(11, 19);
+            result.time.substring(11, 19);
 
         const abnormal =
             document.getElementById("abnormal");
 
         abnormal.innerHTML =
-            data.abnormal ? "异常" : "正常";
+            score.abnormal ? "异常" : "正常";
 
         abnormal.className =
             "card-value " +
-            (data.abnormal ? "abnormal" : "normal");
+            (score.abnormal ? "abnormal" : "normal");
 
-        setItem("ph", data.ph);
-        setItem("tds", data.tds);
-        setItem("turbidity", data.turbidity);
+        setItem("ph", score.ph);
+        setItem("tds", score.tds);
+        setItem("turbidity", score.turbidity);
 
-    }
-    catch (e) {
+        /* ===========================
+           History
+        =========================== */
 
-        console.error("Load Score Error:", e);
-
-    }
-
-}
-
-/* ===========================
-   Load History
-=========================== */
-
-async function loadHistory() {
-
-    try {
-
-        const res = await fetch(HISTORY_API);
-
-        const all = await res.json();
-
-        if (!Array.isArray(all) || all.length === 0)
-            return;
-
-        const history = all.slice(-100);
+        const history = result.data.slice(-100);
 
         const time = history.map(item =>
             item.time.substring(11, 19));
@@ -208,7 +208,7 @@ async function loadHistory() {
     }
     catch (e) {
 
-        console.error("Load History Error:", e);
+        console.error("Load Data Error:", e);
 
     }
 
@@ -233,11 +233,14 @@ window.addEventListener("resize", () => {
 
     requestAnimationFrame(() => {
 
-        if (phChart) phChart.resize();
+        if (phChart)
+            phChart.resize();
 
-        if (tdsChart) tdsChart.resize();
+        if (tdsChart)
+            tdsChart.resize();
 
-        if (turbidityChart) turbidityChart.resize();
+        if (turbidityChart)
+            turbidityChart.resize();
 
     });
 
@@ -263,15 +266,11 @@ window.addEventListener("load", async () => {
 
     await loadData();
 
-    await loadHistory();
-
     setInterval(updateClock, 1000);
 
     setInterval(async () => {
 
         await loadData();
-
-        await loadHistory();
 
     }, 3000);
 
