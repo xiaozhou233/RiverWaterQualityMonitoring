@@ -1,12 +1,9 @@
 import csv
 import os
 from collections import deque
+from config import *
 
-###
-DATA_FILE = "database.csv"
-###
-
-# time, ph, tds, turbidity
+# 表头： time, ph, tds, turbidity
 
 # 插入数据
 def insert_data(time, ph, tds, turbidity):
