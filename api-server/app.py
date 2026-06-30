@@ -1,15 +1,12 @@
 from fastapi import FastAPI
-from datetime import datetime
-from data import * 
-from score import *
 from fastapi.middleware.cors import CORSMiddleware
-
-###
-TOKEN = "mE7yG0kI"
-###
+from routers import root
+from routers import upload
+from routers import get
 
 app = FastAPI()
 
+# 允许跨域
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -18,69 +15,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/")
-def root():
-    return "OK"
-
-# ESP8266 上传数据
-@app.get("/data/upload")
-def data_upload(token:str, ph:float, tds:float, turbidity:float):
-    if token!= TOKEN:
-        return {"status": "error", "message": "token error"}
-
-    insert_data(datetime.now(), ph, tds, turbidity)
-
-    return {"status": "ok", "message": "data_received"}
-
-# 获取全部数据
-@app.get("/data/all")
-def data_all(token:str):
-    if token!= TOKEN:
-        return {"status": "error", "message": "token error"}
-
-    data = get_data()
-
-    if data is None:
-        return []
-    
-    return data
-
-# 获取最新数据
-@app.get("/data/last")
-def data_last(token:str):
-    if token!= TOKEN:
-        return {"status": "error", "message": "token error"}
-
-    data = get_last_data()
-
-    if data is None:
-        return {
-            "time": None,
-            "ph": None,
-            "tds": None,
-            "turbidity": None
-        }
-    
-    return data
-
-# 获取最新数据的评分
-@app.get("/data/score")
-def data_score(token:str):
-    if token!= TOKEN:
-        return {"status": "error", "message": "token error"}
-
-    data = get_last_data()
-
-    if data is None:
-        return {
-            "code": 1,
-            "message": "暂无数据"
-        }
-    
-    ph = data["ph"]
-    tds = data["tds"]
-    turbidity = data["turbidity"]
-
-    score = calculate_score(ph, tds, turbidity)
-    score["time"] = data["time"]
-    return score
+# 根目录路由
+app.include_router(root.router)
+# 数据上传路由
+app.include_router(upload.router)
+# 数据获取路由
+app.include_router(get.router)
