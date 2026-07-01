@@ -1,0 +1,49 @@
+# ==========================
+# Build directories
+# ==========================
+Debug/
+Release/
+
+# CMake (if ever used)
+build/
+
+# ==========================
+# STM32CubeIDE
+# ==========================
+.settings/
+.metadata/
+
+# Project generated files
+*.launch
+
+# Internal cache
+*.log
+
+# ==========================
+# Object files
+# ==========================
+*.o
+*.obj
+*.d
+*.su
+*.elf
+*.axf
+*.hex
+*.bin
+*.map
+*.list
+
+# ==========================
+# Temporary files
+# ==========================
+*.tmp
+*.bak
+*.swp
+*~
+
+# ==========================
+# OS files
+# ==========================
+.DS_Store
+Thumbs.db
+desktop.ini
