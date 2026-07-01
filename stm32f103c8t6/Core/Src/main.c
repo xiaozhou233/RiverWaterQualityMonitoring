@@ -96,17 +96,16 @@ int main(void)
   MX_ADC1_Init();
   /* USER CODE BEGIN 2 */
   ST7735_Init();
+
+  // Display Welcome
+  ST7735_FillScreen(ST7735_BLACK);
+  ST7735_WriteString(5, 5, "Welcome!", Font_11x18, ST7735_WHITE, ST7735_BLACK);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  ST7735_FillScreen(ST7735_BLACK);
-	  ST7735_WriteString(0, 0, "Font_7x10, red on black, lorem ipsum dolor sit amet", Font_7x10, ST7735_RED, ST7735_BLACK);
-	  ST7735_WriteString(0, 3*10, "Font_11x18, green, lorem ipsum", Font_11x18, ST7735_GREEN, ST7735_BLACK);
-	  ST7735_WriteString(0, 3*10+3*18, "Font_16x26", Font_16x26, ST7735_BLUE, ST7735_BLACK);
-	  HAL_Delay(2000);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
