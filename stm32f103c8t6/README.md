@@ -14,8 +14,8 @@
 
 
 ## ADC 接线
-PA0 - PH
-PA1 = TDS
-PA2 = Turbidity
+PA5 - PH
+PA6 = TDS
+PA7 = Turbidity
 ## 致谢
 stm32-st7735 https://github.com/afiskon/stm32-st7735
