@@ -25,12 +25,16 @@
 #include <stdio.h>
 #include "ADC/adc_driver.h"
 #include "TDS/tds.h"
+#include "Turbidity/turbidity.h"
+#include "PH/ph.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-TDS_Data_t tds = {0};
 ADC_RawData_t raw = {0};
+TDS_Data_t tds = {0};
+TURBIDITY_Data_t tur = {0};
+PH_Data_t ph = {0};
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -109,6 +113,7 @@ int main(void)
   MX_ADC1_Init();
   /* USER CODE BEGIN 2 */
   ADC_Driver_Init();
+  PH_Init();
 
   char uart_buf[80];
   /* USER CODE END 2 */
@@ -120,12 +125,14 @@ int main(void)
 	  ADC_GetRaw(&raw);
 
 	  TDS_Calc(raw.tds, &tds);
+	  TURBIDITY_Calc(raw.turbidity, &tur);
+	  PH_Calc(raw.ph, &ph);
 
-	  sprintf(uart_buf,
-	              "PH=%d;TDS=%d;TUR=%d\r\n",
-	              raw.ph,
-	              (int)tds.tds,
-	              raw.turbidity);
+	    sprintf(uart_buf,
+	        "PH=%.2f;TDS=%d;TUR=%d\r\n",
+	        ph.ph,              // ✔ 改这里
+	        (int)tds.tds,
+	        (int)tur.ntu);
 
 	  HAL_UART_Transmit(&huart1,
 	                        (uint8_t*)uart_buf,
