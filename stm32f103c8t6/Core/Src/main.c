@@ -48,6 +48,7 @@ PH_Data_t ph = {0};
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
+/* USER CODE BEGIN PV */
 ADC_HandleTypeDef hadc1;
 DMA_HandleTypeDef hdma_adc1;
 
@@ -55,9 +56,6 @@ SPI_HandleTypeDef hspi1;
 
 UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart3;
-
-/* USER CODE BEGIN PV */
-
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -129,10 +127,10 @@ int main(void)
 	  PH_Calc(raw.ph, &ph);
 
 	    sprintf(uart_buf,
-	        "PH=%.2f;TDS=%d;TUR=%d\r\n",
-	        ph.ph,              // ✔ 改这里
-	        (int)tds.tds,
-	        (int)tur.ntu);
+	        "PH=%.2f;TDS=%.2f;TUR=%.2f\r\n",
+	        ph.ph,
+	        tds.tds,
+	        tur.ntu);
 
 	  HAL_UART_Transmit(&huart1,
 	                        (uint8_t*)uart_buf,
