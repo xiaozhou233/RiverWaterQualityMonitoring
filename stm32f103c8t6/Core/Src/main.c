@@ -21,8 +21,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "st7735/st7735.h"
-#include "st7735/fonts.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -88,11 +87,7 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-  ST7735_Init();
 
-  // Display Welcome
-  ST7735_FillScreen(ST7735_BLACK);
-  ST7735_WriteString(5, 5, "Welcome!", Font_11x18, ST7735_WHITE, ST7735_BLACK);
   /* USER CODE END 2 */
 
   /* Infinite loop */
