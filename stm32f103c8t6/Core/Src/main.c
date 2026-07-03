@@ -21,12 +21,16 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <string.h>
+#include <stdio.h>
+#include "ADC/adc_driver.h"
+#include "TDS/tds.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-
+TDS_Data_t tds = {0};
+ADC_RawData_t raw = {0};
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -104,14 +108,33 @@ int main(void)
   MX_USART3_UART_Init();
   MX_ADC1_Init();
   /* USER CODE BEGIN 2 */
+  ADC_Driver_Init();
 
+  char uart_buf[80];
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  ADC_GetRaw(&raw);
+
+	  TDS_Calc(raw.tds, &tds);
+
+	  sprintf(uart_buf,
+	              "PH=%d;TDS=%d;TUR=%d\r\n",
+	              raw.ph,
+	              (int)tds.tds,
+	              raw.turbidity);
+
+	  HAL_UART_Transmit(&huart1,
+	                        (uint8_t*)uart_buf,
+	                        strlen(uart_buf),
+	                        100);
+
+	  HAL_Delay(500);
     /* USER CODE END WHILE */
+
 
     /* USER CODE BEGIN 3 */
   }

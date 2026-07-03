@@ -15,8 +15,8 @@
 
 ## ADC 接线
 PA0 - PH
-PA1 = TDS
-PA4 = Turbidity
+PA1 - TDS
+PA2 - Turbidity
 
 ## UART 接线
 PA9 - USART1_TX
