@@ -11,26 +11,26 @@ def score_ph(ph: float):
 
 
 def score_tds(tds: float):
-    if tds < 300:
+    if tds < 15:
         return 30, "优秀"
 
-    if tds < 500:
+    if tds < 35:
         return 25, "良好"
 
-    if tds < 1000:
+    if tds < 70:
         return 15, "一般"
 
     return 0, "较差"
 
 
 def score_turbidity(turbidity: float):
-    if turbidity < 5:
+    if turbidity < 100:
         return 30, "优秀"
 
-    if turbidity < 25:
+    if turbidity < 300:
         return 20, "一般"
 
-    if turbidity < 100:
+    if turbidity < 500:
         return 10, "较差"
 
     return 0, "异常"
