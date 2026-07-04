@@ -126,16 +126,20 @@ int main(void)
 	  TURBIDITY_Calc(raw.turbidity, &tur);
 	  PH_Calc(raw.ph, &ph);
 
-	    sprintf(uart_buf,
-	        "PH=%.2f;TDS=%.2f;TUR=%.2f\r\n",
-	        ph.ph,
-	        tds.tds,
-	        tur.ntu);
+	  sprintf(uart_buf,
+	      "UPLOAD:ph=%.2f;tds=%.2f;turbidity=%.2f\r\n",
+	      ph.ph,
+	      tds.tds,
+	      tur.ntu);
 
+	  HAL_UART_Transmit(&huart3,
+	                    (uint8_t*)uart_buf,
+	                    strlen(uart_buf),
+	                    100);
 	  HAL_UART_Transmit(&huart1,
-	                        (uint8_t*)uart_buf,
-	                        strlen(uart_buf),
-	                        100);
+	                    (uint8_t*)uart_buf,
+	                    strlen(uart_buf),
+	                    100);
 
 	  HAL_Delay(500);
     /* USER CODE END WHILE */
