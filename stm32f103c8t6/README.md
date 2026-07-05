@@ -8,8 +8,8 @@ PA2 - Turbidity
 ## UART 接线
 PA9 - USART1_TX
 PA10 - USART1_RX
-PA2 - USART2_TX
-PA3 - USART2_RX
+PB10 - RX
+PB11 - TX
 
 
 ## 致谢
