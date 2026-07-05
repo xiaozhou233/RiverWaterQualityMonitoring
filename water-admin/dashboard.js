@@ -1,4 +1,4 @@
-const API_BASE = "http://127.0.0.1:8000";
+const API_BASE = "https://api.xiaozhou233.cn";
 const DATA_API = API_BASE + "/data/integration";
 
 let phChart = null;

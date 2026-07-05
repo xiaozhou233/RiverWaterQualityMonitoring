@@ -2,7 +2,7 @@
 #include <WiFiManager.h>
 #include <ESP8266HTTPClient.h>
 
-const char* serverUrl = "http://192.168.219.200:8000/";
+const char* serverUrl = "http://api.xiaozhou233.cn/";
 const char* TOKEN = "mE7yG0kI";
 
 char buffer[128];
