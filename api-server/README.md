@@ -1,4 +1,9 @@
 # API-Server
+## 安装
+```bash
+pip install -r requirements.txt
+```
+
 ## 运行
 ```bash
 uvicorn app:app --reload

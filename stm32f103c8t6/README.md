@@ -1,16 +1,18 @@
 # stm32f103c8t6
 
+## 如何使用
+1. 下载代码
+2. 使用STM32CubeIDE编译
+3. 使用ST-LINK下载到开发板
+
 ## ADC 接线
-PA0 - PH
-PA1 - TDS
-PA2 - Turbidity
+PA0 - PH 传感器
+PA1 - TDS 传感器
+PA2 - Turbidity 传感器
 
 ## UART 接线
-PA9 - USART1_TX
-PA10 - USART1_RX
-PB10 - RX
-PB11 - TX
+PA9 - USART1_TX 调试输出
+PA10 - USART1_RX 调试输出
+PB10 - RX ESP8266
+PB11 - TX ESP8266
 
-
-## 致谢
-stm32-st7735 https://github.com/afiskon/stm32-st7735
