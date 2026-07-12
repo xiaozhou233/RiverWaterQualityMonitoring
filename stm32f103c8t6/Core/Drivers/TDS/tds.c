@@ -7,6 +7,8 @@
 
 #include "tds.h"
 
+static const float delta = 7.5f;
+
 void TDS_Init(void)
 {
 
@@ -37,7 +39,7 @@ void TDS_Calc(uint16_t adc, TDS_Data_t *out)
 
 
     // ec -> TDS
-    float tds = ec * k;
+    float tds = ec * k - delta;
 
     if (tds < 0) tds = 0;
     out->tds = tds;
