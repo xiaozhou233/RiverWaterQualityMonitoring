@@ -114,6 +114,7 @@ int main(void)
   PH_Init();
 
   char uart_buf[80];
+  char uart_buf_2[80];
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -142,6 +143,7 @@ int main(void)
 	  float tds_avg = tds_sum / 10.0f;
 	  float tur_avg = tur_sum / 10.0f;
 
+	  // For ESP8266
 	  snprintf(
 	      uart_buf,
 	      sizeof(uart_buf),
@@ -151,13 +153,23 @@ int main(void)
 	      tur_avg
 	  );
 
+	  // For FireWater （VOFA+)
+	  snprintf(
+	  	      uart_buf_2,
+	  	      sizeof(uart_buf_2),
+	  	      "ph-tds-turbidity: %.2f,%.2f,%.2f\r\n",
+	  	      ph_avg,
+	  	      tds_avg,
+	  	      tur_avg
+	  	  );
+
 	  HAL_UART_Transmit(&huart3,
 	                    (uint8_t*)uart_buf,
 	                    strlen(uart_buf),
 	                    100);
 	  HAL_UART_Transmit(&huart1,
-	                    (uint8_t*)uart_buf,
-	                    strlen(uart_buf),
+	                    (uint8_t*)uart_buf_2,
+	                    strlen(uart_buf_2),
 	                    100);
 
 	  HAL_Delay(500);
