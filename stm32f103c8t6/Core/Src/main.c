@@ -120,17 +120,36 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  ADC_GetRaw(&raw);
+	  float ph_sum = 0.0f;
+	  float tds_sum = 0.0f;
+	  float tur_sum = 0.0f;
 
-	  TDS_Calc(raw.tds, &tds);
-	  TURBIDITY_Calc(raw.turbidity, &tur);
-	  PH_Calc(raw.ph, &ph);
+	  for(int i=0;i<10;i++) {
+		  ADC_GetRaw(&raw);
 
-	  sprintf(uart_buf,
+		  PH_Calc(raw.ph, &ph);
+		  TDS_Calc(raw.tds, &tds);
+		  TURBIDITY_Calc(raw.turbidity, &tur);
+
+		  ph_sum += ph.ph;
+		  tds_sum += tds.tds;
+		  tur_sum += tur.ntu;
+
+		  HAL_Delay(5);
+	  }
+
+	  float ph_avg  = ph_sum  / 10.0f;
+	  float tds_avg = tds_sum / 10.0f;
+	  float tur_avg = tur_sum / 10.0f;
+
+	  snprintf(
+	      uart_buf,
+	      sizeof(uart_buf),
 	      "UPLOAD:ph=%.2f;tds=%.2f;turbidity=%.2f\r\n",
-	      ph.ph,
-	      tds.tds,
-	      tur.ntu);
+	      ph_avg,
+	      tds_avg,
+	      tur_avg
+	  );
 
 	  HAL_UART_Transmit(&huart3,
 	                    (uint8_t*)uart_buf,
