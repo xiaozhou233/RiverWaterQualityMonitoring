@@ -12,6 +12,8 @@ uint8_t idx = 0;
 void setup() {
   Serial.begin(115200);
 
+  pinMode(LED_BUILTIN, OUTPUT);
+
   WiFiManager wm;
   if (!wm.autoConnect("ESP8266-Setup")) {
     Serial.println("ERR;WIFI");
@@ -41,11 +43,13 @@ void loop() {
 
 /* ================= SERIAL PARSER ================= */
 void handleLine(char *line) {
+  digitalWrite(LED_BUILTIN, HIGH);
   if (strncmp(line, "UPLOAD:", 7) == 0) {
     parseUpload(line + 7);
   } else {
     Serial.println("ERR;CMD");
   }
+  digitalWrite(LED_BUILTIN, LOW);
 }
 
 /* ================= DATA PARSER ================= */
