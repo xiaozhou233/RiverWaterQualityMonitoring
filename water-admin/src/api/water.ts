@@ -2,7 +2,7 @@ import type { WaterData } from "../types/water.ts";
 
 
 const API =
-  "https://api.xiaozhou233.cn/data/integration";
+  "https://api.xiaozhou233.cn/water/data/integration";
 
 
 export async function getWaterData()
